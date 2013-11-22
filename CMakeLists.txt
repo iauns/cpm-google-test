@@ -89,7 +89,6 @@ if(MSVC)
   set(Suffix ".lib")
 else()
   set(Suffix ".a")
-  set(Pthread "-pthread")
 endif()
 
 #debug ${binary_dir}/DebugLibs/${CMAKE_FIND_LIBRARY_PREFIXES}gtest${Suffix}

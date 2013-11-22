@@ -50,7 +50,12 @@ file(GLOB Sources
 
 ########################################################################
 # Setup executable
+if (UNIX)
+  if (NOT APPLE)
+    set(PTHREADS "-pthread")
+  endif()
+endif()
 
 add_executable(google_test_test ${Sources})
-target_link_libraries(google_test_test ${CPM_LIBRARIES})
+target_link_libraries(google_test_test ${CPM_LIBRARIES} ${PTHREADS})
 
