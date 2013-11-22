@@ -21,6 +21,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "build-essential"
     chef.add_recipe "apt"
     chef.add_recipe "git"
+    chef.add_recipe "subversion"
+    chef.add_recipe "cmake"
   end
 
   # The url from where the 'config.vm.box' box will be fetched if it

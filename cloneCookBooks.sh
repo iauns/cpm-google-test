@@ -4,18 +4,19 @@ if [ ! -d ./cookbooks ]; then
   mkdir cookbooks
 fi
 
-if [ ! -d ./cookbooks/build-essential ]; then
-  git clone https://github.com/opscode-cookbooks/build-essential.git ./cookbooks/build-essential
-fi
+function CloneCookbook
+{
+  DIR_NAME=$1
+  REPO_NAME=$2
+  if [ ! -d ${DIR_NAME} ]; then
+    git clone ${REPO_NAME} ${DIR_NAME}
+  fi
+}
 
-if [ ! -d ./cookbooks/apt ]; then
-  git clone https://github.com/opscode-cookbooks/apt.git ./cookbooks/apt
-fi
+CloneCookbook ./cookbooks/build-essential https://github.com/opscode-cookbooks/build-essential.git 
+CloneCookbook ./cookbooks/apt https://github.com/opscode-cookbooks/apt.git 
+CloneCookbook ./cookbooks/nodejs https://github.com/mdxp/nodejs-cookbook.git 
+CloneCookbook ./cookbooks/git https://github.com/opscode-cookbooks/git.git 
+CloneCookbook ./cookbooks/subversion https://github.com/opscode-cookbooks/subversion.git
+CloneCookbook ./cookbooks/cmake https://github.com/phlipper/chef-cmake.git 
 
-if [ ! -d ./cookbooks/nodejs ]; then
-  git clone https://github.com/mdxp/nodejs-cookbook.git ./cookbooks/nodejs
-fi
-
-if [ ! -d ./cookbooks/git ]; then
-  git clone https://github.com/opscode-cookbooks/git.git ./cookbooks/git
-fi
