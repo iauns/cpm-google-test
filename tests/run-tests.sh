@@ -12,3 +12,6 @@ pushd ./bin > /dev/null
   cmake ..
   make
 popd
+
+# Run the tests
+./bin/google_test_test
