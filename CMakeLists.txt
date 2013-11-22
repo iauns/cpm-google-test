@@ -44,11 +44,6 @@ CPM_InitModule(${CPM_MODULE_NAME})
 # Enable ExternalProject CMake module
 include(ExternalProject)
 
-# Set the build type if it isn't already
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release)
-endif()
-
 # Set default ExternalProject root directory
 set_directory_properties(PROPERTIES EP_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty)
 
