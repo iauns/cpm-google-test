@@ -68,7 +68,7 @@ ExternalProject_Add(${EP_PROJECT_NAME}
     LOG_BUILD ON)
 
 # Specify include dir
-ExternalProject_Get_Property(googletest source_dir)
+ExternalProject_Get_Property(${EP_PROJECT_NAME} source_dir)
 include_directories(${source_dir}/include)
 CPM_ExportAdditionalIncludeDir("${source_dir}/include")
 
@@ -84,7 +84,7 @@ add_dependencies(${GOOGLE_TEST_LIBRARY} ${EP_PROJECT_NAME})
 # Grab the source directory, that is where all of the library files
 # will reside. We will staically link against them.
 ExternalProject_Get_Property(${EP_PROJECT_NAME} SOURCE_DIR)
-ExternalProject_Get_Property(googletest binary_dir)
+ExternalProject_Get_Property(${EP_PROJECT_NAME} binary_dir)
 if(MSVC)
   set(Suffix ".lib")
 else()
