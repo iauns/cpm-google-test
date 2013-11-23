@@ -48,7 +48,7 @@ include(ExternalProject)
 set_directory_properties(PROPERTIES EP_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty)
 
 # Add gtest
-set(EP_PROJECT_NAME "googletest")
+set(EP_PROJECT_NAME "cpm_googletest_ep")
 ExternalProject_Add(${EP_PROJECT_NAME}
     SVN_REPOSITORY http://googletest.googlecode.com/svn/trunk/
     SVN_REVISION -r 662
