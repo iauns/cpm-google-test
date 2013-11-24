@@ -44,8 +44,11 @@ CPM_EnsureRepoIsCurrent(
   SVN_REPOSITORY "http://googletest.googlecode.com/svn/trunk"
   SVN_REVISION "662"
   )
+
+add_definitions(-DGTEST_USE_OWN_TR1_TUPLE=1)
 add_subdirectory(${GOOGLE_TEST_DIR})
 
+CPM_ExportAdditionalDefinition("-DGTEST_USE_OWN_TR1_TUPLE=1")
 CPM_ExportAdditionalIncludeDir("${GOOGLE_TEST_DIR}/include")
 CPM_ExportAdditionalLibraryTarget("gtest")
 
