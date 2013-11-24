@@ -36,69 +36,31 @@ CPM_InitModule(${CPM_MODULE_NAME})
 #------------------------------------------------------------------------------
 # Google Test
 #------------------------------------------------------------------------------
-# Much of this is pulled from the following stack overflow question:
-# http://stackoverflow.com/questions/9689183/cmake-googletest
+# Google test as an external project is a bad idea! You really should add it
+# as a subdirectory so that it can capture your compiler flags
+set(GOOGLE_TEST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/gtest)
+CPM_EnsureRepoIsCurrent(
+  TARGET_DIR ${GOOGLE_TEST_DIR}
+  SVN_REPOSITORY "http://googletest.googlecode.com/svn/trunk"
+  SVN_REVISION "662"
+  )
+add_subdirectory(${GOOGLE_TEST_DIR})
 
-#file(WRITE gtest.patch "")
-
-# Enable ExternalProject CMake module
-include(ExternalProject)
-
-# Set default ExternalProject root directory
-set_directory_properties(PROPERTIES EP_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty)
-
-# Add gtest
-set(EP_PROJECT_NAME "cpm_googletest_ep")
-ExternalProject_Add(${EP_PROJECT_NAME}
-    SVN_REPOSITORY http://googletest.googlecode.com/svn/trunk/
-    SVN_REVISION -r 662
-    TIMEOUT 10
-    #PATCH_COMMAND svn patch ${CMAKE_SOURCE_DIR}/gtest.patch ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/src/googletest
-    # Force separate output paths for debug and release builds to allow easy
-    # identification of correct lib in subsequent TARGET_LINK_LIBRARIES commands
-    CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-               -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS}"
-    #           -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG:PATH=DebugLibs
-    #           -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE:PATH=ReleaseLibs
-    #           -Dgtest_force_shared_crt=ON
-    # Disable install step
-    INSTALL_COMMAND ""
-    # Wrap download, configure and build steps in a script to log output
-    LOG_DOWNLOAD ON
-    LOG_CONFIGURE ON
-    LOG_BUILD ON)
-
-# Specify include dir
-ExternalProject_Get_Property(${EP_PROJECT_NAME} source_dir)
-include_directories(${source_dir}/include)
-CPM_ExportAdditionalIncludeDir("${source_dir}/include")
+CPM_ExportAdditionalIncludeDir("${GOOGLE_TEST_DIR}/include")
+CPM_ExportAdditionalLibraryTarget("gtest")
 
 # Add compiler flag for MSVC 2012
-if(MSVC_VERSION EQUAL 1700)
-  CPM_ExportAdditionalDefinition("-D_VARIADIC_MAX=10")
-endif()
+#if(MSVC_VERSION EQUAL 1700)
+#  CPM_ExportAdditionalDefinition("-D_VARIADIC_MAX=10")
+#endif()
 
-set(GOOGLE_TEST_LIBRARY ${CPM_LIB_TARGET_NAME})
-add_library(${GOOGLE_TEST_LIBRARY} SHARED IMPORTED GLOBAL)
-add_dependencies(${GOOGLE_TEST_LIBRARY} ${EP_PROJECT_NAME})
-
-# Grab the source directory, that is where all of the library files
-# will reside. We will staically link against them.
-ExternalProject_Get_Property(${EP_PROJECT_NAME} SOURCE_DIR)
-ExternalProject_Get_Property(${EP_PROJECT_NAME} binary_dir)
-if(MSVC)
-  set(Suffix ".lib")
-else()
-  set(Suffix ".a")
-endif()
-
-#debug ${binary_dir}/DebugLibs/${CMAKE_FIND_LIBRARY_PREFIXES}gtest${Suffix}
-#optimized ${binary_dir}/ReleaseLibs/${CMAKE_FIND_LIBRARY_PREFIXES}gtest${Suffix}
-
-# Generate a library path and set the imported location.
-# TODO: Set imported location for debug / release libraries.
-set_target_properties(${GOOGLE_TEST_LIBRARY}
-  PROPERTIES
-  IMPORTED_LOCATION ${binary_dir}/${CMAKE_FIND_LIBRARY_PREFIXES}gtest${Suffix}
-  )
+# To see how one would implement google test as an external project,
+# see the following stack overflow question:
+# http://stackoverflow.com/questions/9689183/cmake-googletest
+#
+# It turns out this is a bad idea because the external project does not share
+# your compiler flags.
+#
+# See: 592ba73ab495c8b2661315b6f97e0ac7919f4d4d for an implementation of this
+#      module using an external module.
 
