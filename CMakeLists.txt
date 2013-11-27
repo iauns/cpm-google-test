@@ -65,5 +65,5 @@ CPM_ExportAdditionalLibraryTarget("gtest")
 # your compiler flags.
 #
 # See: 592ba73ab495c8b2661315b6f97e0ac7919f4d4d for an implementation of this
-#      module using an external module.
+#      module using an external project.
 
