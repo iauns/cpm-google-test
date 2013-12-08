@@ -9,7 +9,7 @@ Use
 ---
 
 ```c++
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 ```
 
 Linux Caveat
