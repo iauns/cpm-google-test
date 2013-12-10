@@ -5,12 +5,14 @@ cpm-google-test
 
 CPM external for [google test](http://code.google.com/p/googletest/).
 
-Use
----
+Usage
+-----
 
 ```c++
 #include <gtest/gtest.h>
 ```
+
+Please refer to Google's [gtest documentation](http://code.google.com/p/googletest/wiki/Documentation).
 
 Linux Caveat
 ------------
