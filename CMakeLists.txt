@@ -45,17 +45,26 @@ CPM_EnsureRepoIsCurrent(
   SVN_REVISION "664"
   )
 
-add_definitions(-DGTEST_USE_OWN_TR1_TUPLE=1)
+# Compiler flags for MSVC 2010
+if (MSVC_VERSION EQUAL 1600)
+  add_definitions(-DGTEST_USE_OWN_TR1_TUPLE=0)
+  CPM_ExportAdditionalDefinition("-DGTEST_USE_OWN_TR1_TUPLE=0")
+endif()
+
+# Compiler flags for MSVC 2012
+if(MSVC_VERSION EQUAL 1700)
+  add_definitions(-D_VARIADIC_MAX=10)
+endif()
+
+# For All versions of gtest, we force shared CRT.
+set(gtest_force_shared_crt ON)
+
+# Add gtest now that we have the appropriate flags set.
 add_subdirectory(${GOOGLE_TEST_DIR})
 
-CPM_ExportAdditionalDefinition("-DGTEST_USE_OWN_TR1_TUPLE=1")
 CPM_ExportAdditionalIncludeDir("${GOOGLE_TEST_DIR}/include")
 CPM_ExportAdditionalLibraryTarget("gtest")
 
-# Add compiler flag for MSVC 2012
-#if(MSVC_VERSION EQUAL 1700)
-#  CPM_ExportAdditionalDefinition("-D_VARIADIC_MAX=10")
-#endif()
 
 # To see how one would implement google test as an external project,
 # see the following stack overflow question:
