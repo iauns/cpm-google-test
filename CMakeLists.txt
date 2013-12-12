@@ -58,6 +58,7 @@ endif()
 
 # For All versions of gtest, we force shared CRT.
 set(gtest_force_shared_crt ON)
+set(gtest_force_shared_crt ON)
 
 # Add gtest now that we have the appropriate flags set.
 add_subdirectory(${GOOGLE_TEST_DIR})
