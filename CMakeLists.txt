@@ -43,6 +43,7 @@ CPM_EnsureRepoIsCurrent(
   TARGET_DIR ${GOOGLE_TEST_DIR}
   SVN_REPOSITORY "http://googletest.googlecode.com/svn/trunk"
   SVN_REVISION "664"
+  USE_CACHING TRUE
   )
 
 # Compiler flags for MSVC 2010
