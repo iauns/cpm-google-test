@@ -41,8 +41,8 @@ CPM_InitModule(${CPM_MODULE_NAME})
 set(GOOGLE_TEST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/gtest)
 CPM_EnsureRepoIsCurrent(
   TARGET_DIR ${GOOGLE_TEST_DIR}
-  SVN_REPOSITORY "http://googletest.googlecode.com/svn/trunk"
-  SVN_REVISION "664"
+  GIT_REPOSITORY "https://github.com/google/googletest.git"
+  GIT_TAG "origin/master"
   USE_CACHING TRUE
   )
 
