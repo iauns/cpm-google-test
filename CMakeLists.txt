@@ -64,7 +64,8 @@ set(gtest_force_shared_crt ON)
 # Add gtest now that we have the appropriate flags set.
 add_subdirectory(${GOOGLE_TEST_DIR})
 
-CPM_ExportAdditionalIncludeDir("${GOOGLE_TEST_DIR}/include")
+CPM_ExportAdditionalIncludeDir("${GOOGLE_TEST_DIR}/googletest/include")
+CPM_ExportAdditionalIncludeDir("${GOOGLE_TEST_DIR}/googlemock/include")
 CPM_ExportAdditionalLibraryTarget("gtest")
 
 
