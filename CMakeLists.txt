@@ -67,7 +67,7 @@ add_subdirectory(${GOOGLE_TEST_DIR})
 CPM_ExportAdditionalIncludeDir("${GOOGLE_TEST_DIR}/googletest/include")
 CPM_ExportAdditionalIncludeDir("${GOOGLE_TEST_DIR}/googlemock/include")
 CPM_ExportAdditionalLibraryTarget("gtest")
-
+CPM_ExportAdditionalLibraryTarget("gmock")
 
 # To see how one would implement google test as an external project,
 # see the following stack overflow question:
