@@ -41,8 +41,8 @@ CPM_InitModule(${CPM_MODULE_NAME})
 set(GOOGLE_TEST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/gtest)
 CPM_EnsureRepoIsCurrent(
   TARGET_DIR ${GOOGLE_TEST_DIR}
-  SVN_REPOSITORY "http://googletest.googlecode.com/svn/trunk"
-  SVN_REVISION "664"
+  GIT_REPOSITORY "https://github.com/google/googletest"
+  GIT_TAG "release-1.8.0"
   USE_CACHING TRUE
   )
 
@@ -64,8 +64,10 @@ set(gtest_force_shared_crt ON)
 # Add gtest now that we have the appropriate flags set.
 add_subdirectory(${GOOGLE_TEST_DIR})
 
-CPM_ExportAdditionalIncludeDir("${GOOGLE_TEST_DIR}/include")
+CPM_ExportAdditionalIncludeDir("${GOOGLE_TEST_DIR}/googletest/include")
+CPM_ExportAdditionalIncludeDir("${GOOGLE_TEST_DIR}/googlemock/include")
 CPM_ExportAdditionalLibraryTarget("gtest")
+CPM_ExportAdditionalLibraryTarget("gmock")
 
 
 # To see how one would implement google test as an external project,
